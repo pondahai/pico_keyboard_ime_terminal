@@ -141,3 +141,25 @@
 | **UART 通訊** | | |
 | TX | 0 | 至 Meshtastic 裝置的 RX |
 | RX | 1 | 至 Meshtastic 裝置的 TX |
+
+## 授權
+
+本專案自身的程式碼採 **MIT**，見 [`LICENSE`](LICENSE)。
+
+`picotype_data_optimized.h` 是**衍生資料**，同時包含第三方的字型點陣與注音碼表，
+其聲明必須隨著散布。完整內容見 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)，
+摘要如下：
+
+| 成分 | 上游 | 授權 |
+| :--- | :--- | :--- |
+| 注音碼表（`zhuyin_*` 陣列） | [McBopomofo](https://github.com/openvanilla/McBopomofo)（小麥注音輸入法） | MIT，Copyright (c) 2011-2026 Mengjuei Hsieh et al. |
+| 中文字型（`font_*` 陣列） | Cubic 11（俐方體十一號）+ Fusion Pixel 12px | SIL OFL 1.1 |
+
+碼表使用的是 `BPMFBase.txt`（單字注音）與 `BPMFPunctuations.txt`（標點），
+兩者在上游皆無額外出處註記。帶有 libtabe（BSD）血統的是多字詞庫
+`BPMFMappings.txt` —— **本專案未使用**（這裡是單字候選，不是詞庫）。
+
+> ⚠️ **關於編譯後的韌體**：本 repo 不含 `.pb.c` / `.pb.h`，需自行以
+> `nanopb_generator.py` 從 [meshtastic/protobufs](https://github.com/meshtastic/protobufs)
+> 產生，而該專案為 **GPL-3.0**。因此**編譯出來的韌體二進位檔整體是 GPL-3.0**。
+> MIT 與 GPL-3.0 相容，此組合合法，只是散布該二進位檔時須遵守 GPL-3.0。
