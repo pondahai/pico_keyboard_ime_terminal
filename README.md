@@ -142,6 +142,11 @@
 | TX | 0 | 至 Meshtastic 裝置的 RX |
 | RX | 1 | 至 Meshtastic 裝置的 TX |
 
+> **TODO — 同步掌機鍵盤硬體改版**（見 `rp2040-retro-handheld/docs/HARDWARE.md §2.2`）：
+> - 本專案目前仍寫死舊版 4 腳接線（`CLOCK = GP26`、`DATA_IN = GP27`），且 `DATA_IN` 使用 `INPUT`（無下拉）。
+> - 後續更新時需支援現行 3 腳共用接線：`KBD_SHARED_DATA=1`（74HC165 QH 經 1 kΩ 共用 `GP15`）與 `KBD_CLK_ON_LCD_DC=1`（CLOCK 共用 `GP20` / LCD D/C，掃描前等 SPI 閒置並拉高 CS、掃完還原 D/C），空出 `GP26`/`GP27`。
+> - 同時補上「未接鍵盤防鬼鍵」處理：輸入腳啟用內部下拉（`gpio_pull_down` / `INPUT_PULLDOWN`），共用腳切換輸入前先拉低放電（`gpio_put(15, 0)`），配合硬體端 GP15 47–100 kΩ 下拉電阻。
+
 ## 授權
 
 本專案自身的程式碼採 **MIT**，見 [`LICENSE`](LICENSE)。
